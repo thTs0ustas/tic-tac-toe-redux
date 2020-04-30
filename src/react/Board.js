@@ -1,11 +1,10 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Square from "./Square";
 import { connect } from "react-redux";
 import "./Board.css";
 import { calculateWinner } from "../helper/calculateWinner";
 
 function Board({ xIsNext, value, history }) {
-  console.log(history);
   const winner = calculateWinner(value.flat());
   let status;
   winner
@@ -15,6 +14,10 @@ function Board({ xIsNext, value, history }) {
   const renderSquare = (i) => {
     return <Square index={i} winner={winner} />;
   };
+  useEffect(() => {
+    console.log(value);
+    console.log(history);
+  });
 
   return (
     <div>

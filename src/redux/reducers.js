@@ -15,16 +15,16 @@ export const reducer = (state = init, action) => {
       return {
         ...state,
         payload: {
-          history: state.payload.history.concat({
-            squares: state.payload.value.flat(),
-          }),
+          history: state.payload.history.concat([state.payload.value.flat()]),
           value: [
-            ...state.payload.value.map((e, index) => {
-              if (index !== action.payload.index) {
-                return e;
-              }
-              return [...e, ...action.payload.value];
-            }),
+            ...state.payload.value
+              .map((e, index) => {
+                if (index !== action.payload.index) {
+                  return e;
+                }
+                return [...e, action.payload.value];
+              })
+              .flat(),
           ],
           xIsNext: !state.payload.xIsNext,
         },
@@ -33,16 +33,16 @@ export const reducer = (state = init, action) => {
       return {
         ...state,
         payload: {
-          history: state.payload.history.concat({
-            squares: state.payload.value.flat(),
-          }),
+          history: state.payload.history.concat([state.payload.value.flat()]),
           value: [
-            ...state.payload.value.map((e, index) => {
-              if (index !== action.payload.index) {
-                return e;
-              }
-              return [...e, ...action.payload.value];
-            }),
+            ...state.payload.value
+              .map((e, index) => {
+                if (index !== action.payload.index) {
+                  return e;
+                }
+                return [...e, action.payload.value];
+              })
+              .flat(),
           ],
 
           xIsNext: !state.payload.xIsNext,
