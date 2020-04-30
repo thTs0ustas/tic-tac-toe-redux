@@ -3,48 +3,39 @@ export const O_PLAYS = "O_PLAYS";
 
 const init = {
   payload: {
-    value: Array(9).fill(""),
+    value: Array(9).fill(null),
     history: [],
     xIsNext: true,
   },
 };
 
 export const reducer = (state = init, action) => {
+  let { value, history } = state.payload;
+  let newValue = value.slice();
+  let newHistory = history.slice();
+
   switch (action.type) {
     case X_PLAYS:
+      newValue[action.payload.index] = action.payload.value;
+      newHistory.push(newValue);
+
       return {
         ...state,
         payload: {
-          history: state.payload.history.concat([state.payload.value.flat()]),
-          value: [
-            ...state.payload.value
-              .map((e, index) => {
-                if (index !== action.payload.index) {
-                  return e;
-                }
-                return [...e, action.payload.value];
-              })
-              .flat(),
-          ],
+          history: newHistory,
+          value: newValue,
           xIsNext: !state.payload.xIsNext,
         },
       };
     case O_PLAYS:
+      newValue[action.payload.index] = action.payload.value;
+      newHistory.push(newValue);
+
       return {
         ...state,
         payload: {
-          history: state.payload.history.concat([state.payload.value.flat()]),
-          value: [
-            ...state.payload.value
-              .map((e, index) => {
-                if (index !== action.payload.index) {
-                  return e;
-                }
-                return [...e, action.payload.value];
-              })
-              .flat(),
-          ],
-
+          history: newHistory,
+          value: newValue,
           xIsNext: !state.payload.xIsNext,
         },
       };
