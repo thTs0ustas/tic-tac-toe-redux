@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import { oPlayer, xPlayer } from "../redux/actionCreators";
 
 function Square({ index, xIsNext, value, oPlayer, xPlayer, winner }) {
+  //// Event Handler /////
   const handleClick = (e) => {
     if (value[e] || winner) {
       return;

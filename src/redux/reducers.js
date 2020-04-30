@@ -12,29 +12,26 @@ const init = {
 export const reducer = (state = init, action) => {
   let { value, history } = state.payload;
   let newValue = value.slice();
-  let newHistory = history.slice();
 
   switch (action.type) {
     case X_PLAYS:
       newValue[action.payload.index] = action.payload.value;
-      newHistory.push(newValue);
 
       return {
         ...state,
         payload: {
-          history: newHistory,
+          history: [...history, newValue],
           value: newValue,
           xIsNext: !state.payload.xIsNext,
         },
       };
     case O_PLAYS:
       newValue[action.payload.index] = action.payload.value;
-      newHistory.push(newValue);
 
       return {
         ...state,
         payload: {
-          history: newHistory,
+          history: [...history, newValue],
           value: newValue,
           xIsNext: !state.payload.xIsNext,
         },
