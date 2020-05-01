@@ -26,7 +26,6 @@ export const reducer = (state = init, action) => {
       };
     case O_PLAYS:
       newValue[action.payload.index] = action.payload.value;
-
       return {
         ...state,
         payload: {
@@ -36,12 +35,11 @@ export const reducer = (state = init, action) => {
         },
       };
     case NAME:
-      let id = 0;
       return {
         ...state,
         playerNames: [
           ...state.playerNames,
-          { name: action.payload.name, id: id + 1 + state.playerNames.id },
+          { name: action.payload.name, id: state.playerNames[0].id + 1 },
         ],
       };
     default:

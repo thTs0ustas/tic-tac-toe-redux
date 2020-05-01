@@ -37,7 +37,6 @@ const Game = ({ history, value, playerName }) => {
         {history.map((e, index) => {
           return <li key={index}>{<button>{`Turn ${index + 1}`}</button>}</li>;
         })}
-        {winner ? <h3>{`Winner ${winner}`}</h3> : null}
       </ol>
     </div>
   );
