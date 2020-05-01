@@ -1,5 +1,4 @@
-import { O_PLAYS } from "./actionType";
-import { X_PLAYS } from "./actionType";
+import { O_PLAYS, NAME, X_PLAYS } from "./actionType";
 
 export const xPlayer = (index) => ({
   type: X_PLAYS,
@@ -13,5 +12,12 @@ export const oPlayer = (index) => ({
   payload: {
     value: "O",
     index,
+  },
+});
+
+export const playerName = (name) => ({
+  type: NAME,
+  payload: {
+    name,
   },
 });

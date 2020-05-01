@@ -4,17 +4,36 @@ import { connect } from "react-redux";
 import "./Board.css";
 import { calculateWinner } from "../helper/calculateWinner";
 
-function Board({ xIsNext, value, history }) {
+function Board({ payload: { xIsNext, value, history }, playerNames }) {
   const winner = calculateWinner(value);
 
   ////// Status //////
 
   let status;
-  winner
+  /* winner
     ? (status = `Winner ${winner}`)
     : history.length === 9
     ? (status = "Please Start Again")
-    : (status = xIsNext ? "X Plays" : "O Plays");
+    : xIsNext
+    ? !playerNames[1]
+      ? (status = "Register Players")
+      : (status = `${playerNames[1].name} Plays`)
+    : (status = `${playerNames[2].name} Plays`); */
+
+  if (!playerNames[1]) {
+    status = "Register Players";
+  } else if (winner) {
+    if (winner === "X") {
+      status = `Winner: ${playerNames[1].name}`;
+    } else if (winner === "O") {
+      status = `Winner: ${playerNames[2].name}`;
+    }
+  } else if (xIsNext) {
+    status = `${playerNames[1].name} Plays`;
+  } else {
+    status = `${playerNames[2].name} Plays`;
+  }
+
   const renderSquare = (i) => {
     return <Square index={i} winner={winner} />;
   };
@@ -48,5 +67,5 @@ function Board({ xIsNext, value, history }) {
   );
 }
 
-const mapStateToProps = (state) => state.payload;
+const mapStateToProps = (state) => state;
 export default connect(mapStateToProps)(Board);

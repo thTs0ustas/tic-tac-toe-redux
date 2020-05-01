@@ -3,10 +3,17 @@ import "./square.css";
 import { connect } from "react-redux";
 import { oPlayer, xPlayer } from "../redux/actionCreators";
 
-function Square({ index, xIsNext, value, oPlayer, xPlayer, winner }) {
+function Square({
+  playerNames,
+  payload: { xIsNext, value },
+  oPlayer,
+  xPlayer,
+  winner,
+  index,
+}) {
   //// Event Handler /////
   const handleClick = (e) => {
-    if (value[e] || winner) {
+    if (value[e] || winner || !playerNames[1]) {
       return;
     }
     xIsNext ? xPlayer(e) : oPlayer(e);
@@ -19,5 +26,5 @@ function Square({ index, xIsNext, value, oPlayer, xPlayer, winner }) {
   );
 }
 
-const mapStateToProps = (state) => state.payload;
+const mapStateToProps = (state) => state;
 export default connect(mapStateToProps, { oPlayer, xPlayer })(Square);
