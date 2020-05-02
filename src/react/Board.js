@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import "./Board.css";
 import { calculateWinner } from "../helper/calculateWinner";
 
-function Board({ payload: { xIsNext, value, history }, playerNames }) {
+function Board({ payload: { xIsNext, value }, playerNames }) {
   const winner = calculateWinner(value);
 
   ////// Status //////
@@ -24,14 +24,14 @@ function Board({ payload: { xIsNext, value, history }, playerNames }) {
     status = "Register Players";
   } else if (winner) {
     if (winner === "X") {
-      status = `Winner: ${playerNames[1].name}`;
+      status = `Winner: ${playerNames[0].name}`;
     } else if (winner === "O") {
-      status = `Winner: ${playerNames[2].name}`;
+      status = `Winner: ${playerNames[1].name}`;
     }
   } else if (xIsNext) {
-    status = `${playerNames[1].name} Plays`;
+    status = `${playerNames[0].name} Plays`;
   } else {
-    status = `${playerNames[2].name} Plays`;
+    status = `${playerNames[1].name} Plays`;
   }
 
   const renderSquare = (i) => {
@@ -42,7 +42,7 @@ function Board({ payload: { xIsNext, value, history }, playerNames }) {
 
   useEffect(() => {
     console.log(value);
-    console.log(history);
+    console.log(playerNames);
   });
 
   return (

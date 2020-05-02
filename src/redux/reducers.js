@@ -2,7 +2,7 @@ import { NAME, X_PLAYS, O_PLAYS } from "./actionType";
 //import { combineReducers } from "redux";
 
 const init = {
-  playerNames: [{ name: {}, id: 0 }],
+  playerNames: [],
   payload: {
     value: Array(9).fill(null),
     history: [],
@@ -35,33 +35,43 @@ export const reducer = (state = init, action) => {
         },
       };
     case NAME:
-      return {
-        ...state,
-        playerNames: [
-          ...state.playerNames,
-          { name: action.payload.name, id: state.playerNames[0].id + 1 },
-        ],
-      };
+      return Object.assign({}, state, {
+        playerNames: [...state.playerNames, action.payload],
+      });
+    case "LETS_START":
+      return Object.assign({}, init, { playerNames: state.playerNames });
+    case "LETS_RESTART":
+      return Object.assign({}, init);
     default:
       return state;
   }
 };
-
-/* const nameReducer = (
-  state = { playerNames: [{ name: {}, id: 0 }] },
-  action
-) => {
+/* 
+export const reducer = (state = init, action) => {
+  let { value, history } = state.payload;
+  let newValue = value.slice();
   switch (action.type) {
+    case X_PLAYS:
+      newValue[action.payload.index] = action.payload.value;
+      return Object.assign({}, state, {
+        payload: {
+          history: [newValue],
+          value: newValue,
+          xIsNext: !state.payload.xIsNext,
+        },
+      });
+    case O_PLAYS:
+      newValue[action.payload.index] = action.payload.value;
+      return Object.assign({}, state, {
+        payload: {
+          history: [newValue],
+          value: newValue,
+          xIsNext: !state.payload.xIsNext,
+        },
+      });
     case NAME:
-      return {
-        ...state,
-        playerNames: [
-          { name: action.payload.name, id: state.playerNames[0].id + 1 },
-        ],
-      };
+      return [...state.playerNames, { playerNames: action.payload }];
     default:
       return state;
   }
-};
-
-export default combineReducers({ reducer, nameReducer }); */
+}; */

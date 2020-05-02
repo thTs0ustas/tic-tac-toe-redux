@@ -13,7 +13,7 @@ function Square({
 }) {
   //// Event Handler /////
   const handleClick = (e) => {
-    if (value[e] || winner || !playerNames[1]) {
+    if (value[e] || winner || !playerNames[0]) {
       return;
     }
     xIsNext ? xPlayer(e) : oPlayer(e);

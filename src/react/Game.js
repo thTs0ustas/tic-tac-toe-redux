@@ -2,16 +2,14 @@ import React from "react";
 import Board from "./Board";
 import { useForm } from "react-hook-form";
 import { connect } from "react-redux";
-import { calculateWinner } from "../helper/calculateWinner";
-import { playerName } from "../redux/actionCreators";
+import { playerName, letsStart, letsRestart } from "../redux/actionCreators";
 
-const Game = ({ history, value, playerName }) => {
-  const winner = calculateWinner(value);
+const Game = ({ payload: { history }, letsStart, letsRestart, playerName }) => {
   const { register, handleSubmit, errors } = useForm();
   const handleSubmiting = (data) => {
     playerName(data.xPlayer);
     playerName(data.oPlayer);
-    console.log(data);
+    letsStart();
   };
   return (
     <div>
@@ -22,25 +20,35 @@ const Game = ({ history, value, playerName }) => {
           name="xPlayer"
           ref={register({ required: true })}
         />
-        {errors.xPlayer && console.log("X Player's Name is Required")}
+        {errors.xPlayer && console.log("-X- Player's Name is Required")}
         <input
           type="text"
           placeholder="O player"
           name="oPlayer"
           ref={register({ required: true })}
         />
-        {errors.oPlayer && console.log("O Player's Name is Required")}
+        {errors.oPlayer && console.log("-O- Player's Name is Required")}
         <input type="submit" />
       </form>
       <Board />
       <ol>
         {history.map((e, index) => {
-          return <li key={index}>{<button>{`Turn ${index + 1}`}</button>}</li>;
+          return (
+            <li key={index}>
+              {
+                <button onClick={() => letsRestart()}>{`Turn ${
+                  index + 1
+                }`}</button>
+              }
+            </li>
+          );
         })}
       </ol>
     </div>
   );
 };
 
-const mapStateToProps = (state) => state.payload;
-export default connect(mapStateToProps, { playerName })(Game);
+const mapStateToProps = (state) => state;
+export default connect(mapStateToProps, { playerName, letsStart, letsRestart })(
+  Game
+);
