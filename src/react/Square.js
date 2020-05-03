@@ -1,8 +1,7 @@
 import React from "react";
-import "./square.css";
 import { connect } from "react-redux";
 import { oPlayer, xPlayer } from "../redux/actionCreators";
-
+import "./square.css";
 function Square({
   playerNames,
   payload: { xIsNext, value },
