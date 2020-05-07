@@ -49,10 +49,13 @@ export const gameStart = () => ({
 export const gameRestart = () => ({
   type: "GAME_RESTART",
   payload: {
-    payload: {
-      value: Array(9).fill(null),
-      history: [],
-      xIsNext: true,
-    },
+    value: Array(9).fill(null),
+    history: [],
+    xIsNext: true,
   },
+});
+
+export const andTheWinnerIs = (winner) => ({
+  type: "WE_HAVE_A_WINNER",
+  payload: { winner },
 });

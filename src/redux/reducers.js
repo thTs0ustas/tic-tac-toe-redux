@@ -2,6 +2,7 @@ import { NAME, X_PLAYS, O_PLAYS } from "./actionType";
 //import { combineReducers } from "redux";
 
 const init = {
+  winners: [],
   playerNames: [],
   payload: {
     value: Array(9).fill(null),
@@ -41,11 +42,17 @@ export const reducer = (state = init, action) => {
     case "LETS_START":
       return Object.assign({}, init, { playerNames: state.playerNames });
     case "LETS_RESTART":
-      return Object.assign({}, init);
+      return Object.assign({}, init, {
+        playerNames: state.playerNames,
+        winners: state.winners,
+      });
+    case "WE_HAVE_A_WINNER":
+      return { ...state, winners: [...state.winners, action.payload.winner] };
     default:
       return state;
   }
 };
+
 /* 
 export const reducer = (state = init, action) => {
   let { value, history } = state.payload;

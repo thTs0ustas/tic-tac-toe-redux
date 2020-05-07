@@ -1,8 +1,10 @@
 import React from "react";
 import Board from "./Board";
+import Score from "./Score";
 import { useForm } from "react-hook-form";
 import { connect } from "react-redux";
 import { playerName, letsStart, letsRestart } from "../redux/actionCreators";
+import "./Game.css";
 
 const Game = ({ payload: { history }, letsStart, letsRestart, playerName }) => {
   const { register, handleSubmit, errors } = useForm();
@@ -12,7 +14,7 @@ const Game = ({ payload: { history }, letsStart, letsRestart, playerName }) => {
     letsStart();
   };
   return (
-    <div>
+    <div className="gameDiv">
       <form onSubmit={handleSubmit(handleSubmiting)}>
         <input
           type="text"
@@ -30,7 +32,10 @@ const Game = ({ payload: { history }, letsStart, letsRestart, playerName }) => {
         {errors.oPlayer && console.log("-O- Player's Name is Required")}
         <input type="submit" />
       </form>
-      <Board />
+      <div className="copm">
+        <Board />
+        <Score />
+      </div>
       <ol>
         {history.map((e, index) => {
           return (

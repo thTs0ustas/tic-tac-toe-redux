@@ -12,14 +12,3 @@ export const store = createStore(
 );
 
 epicMiddleware.run(rootEpic);
-
-/* export default function configureStore() {
-  const store = createStore(
-    reducer,
-    composeWithDevTools(applyMiddleware(epicMiddleware))
-  );
-
-  epicMiddleware.run(rootEpic);
-
-  return store;
-} */

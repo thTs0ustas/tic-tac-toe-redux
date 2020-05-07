@@ -1,0 +1,12 @@
+.copm {
+  display: flex;
+  justify-content: center;
+  align-items: baseline;
+}
+
+ol {
+  height: 50px;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+}

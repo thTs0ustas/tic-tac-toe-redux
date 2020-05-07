@@ -3,22 +3,15 @@ import Square from "./Square";
 import { connect } from "react-redux";
 import "./Board.css";
 import { calculateWinner } from "../helper/calculateWinner";
+import { andTheWinnerIs } from "../redux/actionCreators";
 
-function Board({ payload: { xIsNext, value }, playerNames }) {
+function Board({ payload: { xIsNext, value }, playerNames, andTheWinnerIs }) {
   const winner = calculateWinner(value);
 
+  console.log(winner);
   ////// Status //////
 
   let status;
-  /* winner
-    ? (status = `Winner ${winner}`)
-    : history.length === 9
-    ? (status = "Please Start Again")
-    : xIsNext
-    ? !playerNames[1]
-      ? (status = "Register Players")
-      : (status = `${playerNames[1].name} Plays`)
-    : (status = `${playerNames[2].name} Plays`); */
 
   if (!playerNames[1]) {
     status = "Register Players";
@@ -38,12 +31,14 @@ function Board({ payload: { xIsNext, value }, playerNames }) {
     return <Square index={i} winner={winner} />;
   };
 
-  ////Just Evaluation////
-
   useEffect(() => {
-    console.log(value);
-    console.log(playerNames);
-  });
+    const cleanup = () => {
+      if (winner) {
+        andTheWinnerIs(winner);
+      }
+    };
+    cleanup();
+  }, [andTheWinnerIs, winner]);
 
   return (
     <div className="board">
@@ -68,4 +63,4 @@ function Board({ payload: { xIsNext, value }, playerNames }) {
 }
 
 const mapStateToProps = (state) => state;
-export default connect(mapStateToProps)(Board);
+export default connect(mapStateToProps, { andTheWinnerIs })(Board);
