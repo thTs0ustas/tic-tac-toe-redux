@@ -1,11 +1,18 @@
 import React, { useEffect } from "react";
 import Square from "./Square";
 import { connect } from "react-redux";
+import { oPlayer, xPlayer } from "../redux/actionCreators";
 import "./Board.css";
 import { calculateWinner } from "../helper/calculateWinner";
 import { andTheWinnerIs } from "../redux/actionCreators";
 
-function Board({ payload: { xIsNext, value }, playerNames, andTheWinnerIs }) {
+function Board({
+  payload: { xIsNext, value },
+  xPlayer,
+  oPlayer,
+  playerNames,
+  andTheWinnerIs,
+}) {
   const winner = calculateWinner(value);
 
   ////// Status //////
@@ -27,7 +34,13 @@ function Board({ payload: { xIsNext, value }, playerNames, andTheWinnerIs }) {
   }
 
   const renderSquare = (i) => {
-    return <Square index={i} winner={winner} />;
+    return (
+      <Square
+        disabled={value[i] || winner || !playerNames[0]}
+        onClick={() => (xIsNext ? xPlayer(i) : oPlayer(i))}
+        values={value[i]}
+      />
+    );
   };
 
   useEffect(() => {
@@ -62,4 +75,6 @@ function Board({ payload: { xIsNext, value }, playerNames, andTheWinnerIs }) {
 }
 
 const mapStateToProps = (state) => state;
-export default connect(mapStateToProps, { andTheWinnerIs })(Board);
+export default connect(mapStateToProps, { andTheWinnerIs, xPlayer, oPlayer })(
+  Board
+);

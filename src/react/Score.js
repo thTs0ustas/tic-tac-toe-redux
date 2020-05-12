@@ -3,7 +3,6 @@ import { connect } from "react-redux";
 import "./Score.css";
 
 const Score = ({ playerNames, winners }) => {
-  console.log(winners);
   let countX = 0;
   let countO = 0;
   winners.forEach((element) => {
@@ -36,14 +35,3 @@ const Score = ({ playerNames, winners }) => {
 
 const mapStateToProps = (state) => state;
 export default connect(mapStateToProps)(Score);
-
-/* {
-  winners.map((e, index) => {
-    return (
-      <tr key={index}>
-        <td>{e === "X" && "V"}</td>
-        <td>{e === "O" && "V"}</td>
-      </tr>
-    );
-  });
-} */
