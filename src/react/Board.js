@@ -8,7 +8,6 @@ import { andTheWinnerIs } from "../redux/actionCreators";
 function Board({ payload: { xIsNext, value }, playerNames, andTheWinnerIs }) {
   const winner = calculateWinner(value);
 
-  console.log(winner);
   ////// Status //////
 
   let status;

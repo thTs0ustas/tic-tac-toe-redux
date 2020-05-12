@@ -5,8 +5,15 @@
 }
 
 ol {
-  height: 50px;
+  width: 100px;
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
+}
+
+li {
+  margin-left: 20px;
+}
+button {
+  padding: initial;
 }

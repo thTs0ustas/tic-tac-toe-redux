@@ -30,7 +30,7 @@ const Game = ({ payload: { history }, letsStart, letsRestart, playerName }) => {
           ref={register({ required: true })}
         />
         {errors.oPlayer && console.log("-O- Player's Name is Required")}
-        <input type="submit" />
+        <input type="submit" value="Press" />
       </form>
       <div className="copm">
         <Board />
