@@ -1,14 +1,13 @@
-//import { configureStore } from "@reduxjs/toolkit";
-import { applyMiddleware, createStore } from "redux";
+import { configureStore } from "@reduxjs/toolkit";
+//import { applyMiddleware, createStore } from "redux";
 import { reducer } from "../redux/reducers";
 import rootEpic from "../epic/epics";
 import { createEpicMiddleware } from "redux-observable";
-import { composeWithDevTools } from "redux-devtools-extension";
 const epicMiddleware = createEpicMiddleware();
 
-export const store = createStore(
+export const store = configureStore({
   reducer,
-  composeWithDevTools(applyMiddleware(epicMiddleware))
-);
+  middleware: [epicMiddleware],
+});
 
 epicMiddleware.run(rootEpic);
